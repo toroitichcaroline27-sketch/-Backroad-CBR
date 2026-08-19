@@ -1,8 +1,18 @@
 package com.backroad.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
 import java.time.LocalDateTime;
 
+@Entity
 public class BlockerJournal {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     private String productId;
     private String blockerType;
@@ -25,6 +35,10 @@ public class BlockerJournal {
         this.description = description;
         this.status = status;
         this.createdAt = LocalDateTime.now();
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public String getProductId() {
