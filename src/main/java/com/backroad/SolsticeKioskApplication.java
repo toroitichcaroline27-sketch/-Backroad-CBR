@@ -90,14 +90,22 @@ public class SolsticeKioskApplication {
     private final ConcurrentHashMap<String, Attendee> attendeeDb = new ConcurrentHashMap<>();
     private final VendorMessageQueuePublisher queuePublisher;
 
-    public SolsticeKioskApplication(VendorMessageQueuePublisher queuePublisher) {
+   public SolsticeKioskApplication(VendorMessageQueuePublisher queuePublisher) {
         this.queuePublisher = queuePublisher;
+        
         // Pre-seed test attendees
-        attendeeDb.put("ATT001", new Attendee("ATT001", "Alice Smith"));
-        attendeeDb.put("ATT002", new Attendee("ATT002", "Bob Jones"));
-        attendeeDb.put("ATT003", new Attendee("ATT003", "Charlie Brown"));
-    }
+        Attendee att1 = new Attendee("ATT001", "Caroline Jelagat");
+        att1.setStatus(CheckInStatus.CHECKED_IN);
 
+        Attendee att2 = new Attendee("ATT002", "Jones Mutheu");
+        att2.setStatus(CheckInStatus.CHECKED_IN);
+
+        Attendee att3 = new Attendee("ATT003", "Faith Makena");
+
+        attendeeDb.put("ATT001", att1);
+        attendeeDb.put("ATT002", att2);
+        attendeeDb.put("ATT003", att3);
+    }
     // 1. Kiosk QR Scan Endpoint: Enqueues print job & sets state to PENDING
     @PostMapping("/kiosk/scan")
     public ResponseEntity<?> scanAttendee(@RequestBody PrintJobRequest request) {
